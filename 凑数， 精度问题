@@ -1,0 +1,62 @@
+
+凑算式
+
+       B      DEF
+A + — + -——— = 10
+       C       GHI
+
+（如果显示有问题，可以参见【图1.jpg】）
+
+这个算式中A~I代表1~9的数字，不同的字母代表不同的数字。
+
+比如：
+6+8/3+952/714 就是一种解法，
+5+3/1+972/486 是另一种解法。
+
+这个算式一共有多少种解法？
+
+注意：你提交应该是个整数，不要填写任何多余的内容或说明性文字。
+
+
+这个题不多说了，直接暴力生成9的全排列然后去验证等式是否成立，只是验证的时候如果防止精度问题可以通分把除法变成乘法。
+答案是：29
+
+#include<stdio.h>
+#include<iostream>
+#include<math.h> 
+#include<stdlib.h> 
+#include<string.h> 
+using  namespace std;
+int n=0;
+void func(int*arr,int k,int m){
+	int temp,i,j;
+	if(k==m){
+		double sum=arr[0]*1.0+(arr[1]*1.0/arr[2])+((arr[3]*100+arr[4]*10+arr[5])*1.0/(arr[6]*100+arr[7]*10+arr[8]));
+		//精度 (arr[1]*1.0/arr[2])和(arr[1]/arr[2])*1.0，（double）(arr[1]/arr[2])的区别； 
+		//6.0/4    (6/4)*1.0   (double)(6/4) 
+		//精度 
+		if(sum==10.0){
+			n++;
+			for(j=0;j<=m;j++){
+				cout<<arr[j];
+			
+			}
+				cout<<endl;
+		}
+	}
+	else{
+		for( i=k;i<=m;i++){
+			temp=arr[i];arr[i]=arr[k];arr[k]=temp;
+			func(arr,k+1,m);
+			temp=arr[i];arr[i]=arr[k];arr[k]=temp;
+	}
+	} 
+	
+}
+int main(void){
+	int arr[9]={1,2,3,4,5,6,7,8,9};
+	func(arr,0,8);
+	cout<<n;
+	return 0;
+	
+} 
