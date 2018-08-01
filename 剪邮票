@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+int count=0;
+
+int buffer[5];
+int func(int i,int* buffer,int *count,int j){//i  邮票的号码， 
+	buffer[j]=i;
+	if(j==4){
+		(*count)++;
+		return 0;
+	}
+	//向左剪 
+	if((i-1)%4==0);
+	else{
+		func(i-1,buffer,count,j+1);
+	} 
+	//向右剪
+	if(i%4==0);
+	else{
+		func(i+1,buffer,count,j+1);
+		
+	} 
+	//向下剪
+	if(i+4>=13);
+	else{
+		func(i+4,buffer,count,j+1);
+	} 
+	
+
+	
+}
+int main(void){
+	for(int j=0;j<8;j++){
+		func(1,buffer,&count,0);
+	}
+	cout<<count/2;
+	return 0;
+} 
