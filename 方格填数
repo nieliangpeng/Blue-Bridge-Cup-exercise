@@ -1,0 +1,68 @@
+第六题：
+
+方格填数
+
+如下的10个格子
+
+（如果显示有问题，也可以参看【图1.jpg】）
+
+填入0~9的数字。要求：连续的两个数字不能相邻。
+（左右、上下、对角都算相邻）
+
+一共有多少种可能的填数方案？
+
+请填写表示方案数目的整数。
+注意：你提交的应该是一个整数，不要填写任何多余的内容或说明性文字。
+
+
+
+这个题目题目有点表述不明，不知道0~9 可不可以重复使用。我当时做的时候是当作不可以重复使用来处理的。那么这里我就先当作不可重复使用来讲解。
+
+这里题目还是一样先往里面填数。用生成排列的形式。填写完了之后再判断是否可行。答案是:1580
+
+#include<stdio.h>
+#include<iostream>
+#include<math.h> 
+#include<stdlib.h> 
+#include<string.h> 
+using  namespace std;
+int count=0;
+
+void func1(int*arr,int k,int m){
+	int i,temp;
+	if(k==m){
+		if((arr[0]!=arr[1]+1)&&(arr[0]!=arr[1]-1)&&(arr[0]!=arr[3]+1)&&(arr[0]!=arr[3]-1)&&(arr[0]!=arr[4]+1)&&(arr[0]!=arr[4]-1)&&(arr[0]!=arr[5]+1)&&(arr[0]!=arr[5]-1)){
+			if((arr[1]!=arr[2]+1)&&(arr[1]!=arr[2]-1)&&(arr[1]!=arr[4]+1)&&(arr[1]!=arr[4]-1)&&(arr[1]!=arr[5]+1)&&(arr[1]!=arr[5]-1)&&(arr[1]!=arr[6]+1)&&(arr[1]!=arr[6]-1)){
+				if((arr[2]!=arr[5]+1)&&(arr[2]!=arr[5]-1)&&(arr[2]!=arr[6]+1)&&(arr[2]!=arr[6]-1)){
+					if((arr[3]!=arr[4]+1)&&(arr[3]!=arr[4]-1)&&(arr[3]!=arr[7]+1)&&(arr[3]!=arr[7]-1)&&(arr[3]!=arr[8]+1)&&(arr[3]!=arr[8]-1)){
+						if((arr[4]!=arr[5]-1)&&(arr[4]!=arr[5]+1)&&(arr[4]!=arr[7]-1)&&(arr[4]!=arr[7]+1)&&(arr[4]!=arr[8]-1)&&(arr[4]!=arr[8]+1)&&(arr[4]!=arr[9]-1)&&(arr[4]!=arr[9]+1)){
+							if((arr[5]!=arr[6]-1)&&(arr[5]!=arr[6]+1)&&(arr[5]!=arr[8]-1)&&(arr[5]!=arr[8]+1)&&(arr[5]!=arr[9]-1)&&(arr[5]!=arr[9]+1)){
+								if((arr[6]!=arr[9]-1)&&(arr[6]!=arr[9]+1)){
+									if((arr[7]!=arr[8]-1)&&(arr[7]!=arr[8]+1)){
+										if((arr[8]!=arr[9]-1)&&(arr[8]!=arr[9]+1)){
+											count++;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	else{
+		for(i=k;i<=m;i++){
+			temp=arr[i];arr[i]=arr[k];arr[k]=temp;
+			func1(arr,k+1,m);
+			temp=arr[i];arr[i]=arr[k];arr[k]=temp;
+		}
+	}
+}
+int main(void){
+	int arr[10]={0,1,2,3,4,5,6,7,8,9};
+	func1(arr,0,9);
+	cout<<count; 
+	return 0;
+	
+} 
