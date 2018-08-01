@@ -1,0 +1,47 @@
+最小公倍数=两整数的乘积÷最大公约数
+//辗转相除法求最大公约数
+#include<iostream>
+using namespace std;
+int min(int a,int b){
+    if(a>b){
+        return b;
+    }
+    return a;
+}
+int gcd(int a,int b){
+    int c;
+    if(min(a,b)==b){
+        c=a%b;
+    }else{
+        c=b%a;
+    }
+    if(c==0){
+        return b;
+    }else{
+        gcd(min(a,b),c);
+    }
+}
+int main(void){
+    cout<<gcd(98,63);
+
+    return 0;
+}
+//相减法求最大公约数
+#include<iostream>
+using namespace std;
+int gcd(int a,int b){
+    if(a>b){
+        a=a-b;
+    }
+    if(b>a){
+        b=b-a;
+    }
+    if(a==b){
+        return a;
+    }
+    gcd(a,b);
+}
+int main(void){
+    cout<<gcd(30,30);
+    return 0;
+}
