@@ -1,0 +1,37 @@
+排的数太多，全排序太慢
+用递归
+标题：李白打酒
+    话说大诗人李白，一生好饮。幸好他从不开车。
+    一天，他提着酒壶，从家里出来，酒壶中有酒2斗。他边走边唱：
+
+    无事街上走，提壶去打酒。
+    逢店加一倍，遇花喝一斗。
+
+    这一路上，他一共遇到店5次，遇到花10次，已知最后一次遇到的是花，他正好把酒喝光了。 
+    请你计算李白遇到店和花的次序，可以把遇店记为a，遇花记为b。则：babaabbabbabbbb 就是合理的次序。像这样的答案一共有多少呢？请你计算出所有可能方案的个数（包含题目给出的）。
+    注意：通过浏览器提交答案。答案是个整数。不要书写任何多余的内容。
+
+分析：这是一个典型的需要用递归模拟的题目，我们需要做的是分析出在这一过程当中变化的地方抽为参数，然后分析出所有的递归出口。
+#include<iostream>
+using namespace std;
+ void libai(int step, int jiu, int dian, int hua,int *counter) {
+
+		if (step < 0 || jiu < 0 || dian < 0 || hua < 1) {
+			return;
+		}
+
+		if (step == 0 && jiu == 1 && dian == 0 && hua == 1) {
+			(*counter)++;
+			return;
+		}
+
+		libai(step - 1, jiu - 1, dian, hua - 1,counter); // 遇到花了
+		libai(step - 1, jiu * 2, dian - 1, hua,counter); // 遇到店了
+
+	}
+int main(void){
+   int counter = 0;
+   libai(14, 2, 5, 10,&counter);
+   cout<<counter;
+    return 0;
+}
